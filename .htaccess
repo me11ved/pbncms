@@ -1,0 +1,28 @@
+#<Files .htpasswd> 
+#</Files>
+#<Files .htaccess> 
+#</Files>
+
+<Files ~ "\.dat$|\.inc$|\.bak$|\.old$|\.log|\.tpl$"> 
+Order allow,deny 
+Deny from all 
+</Files>
+
+AddDefaultCharset utf-8
+
+RewriteEngine On
+
+RewriteBase /
+
+#RewriteEngine On
+#RewriteCond %{SERVER_PORT} !^443$
+#RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+
+RewriteRule ^rssc$ /page/rss/ [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+

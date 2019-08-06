@@ -1,0 +1,148 @@
+<?php if(Session::get('loggedIn') == true): ?> 
+
+		<!--content-->
+		<div class="TableContent">
+			<div id='breadcrumbs'>
+			</div>
+		
+		
+		
+		<div class="popup" style="display:none;">
+					<div id="header" class="popup_header">
+						<div id="title" class="fll">Новый редирект</div>
+						<div id="setting" class="flr">
+							<span class="pointer" id="closePopup">&times;</span>
+						</div>
+					</div>
+					
+					<div id="content">
+						<div class="windowStatusPopup"></div>
+						<form action="javascript:void(0);" name='data'>
+						<table id="hor-minimalist-b">
+							<tr>
+								<td>
+									<div>Откуда <span class="tag">Список</span></div>
+									<textarea name='from' placeholder="/test1/old-url" class="w100"></textarea>
+								</td>
+								<td> 
+										<div>Куда <span class="tag">Список</span></div>
+										<textarea name='to' placeholder="/test1/new-url" class="w100"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>Включен </td><td><select name="public" class="w100"><option value="1">Да</option><option value="0">Нет</option></select></td>
+							</tr>
+						</table>
+						<input type='submit' class="ButtonStyle" app-method="add_rd" value='Добавить'>
+						</form>
+						
+					</div>
+		</div>
+			
+		<div class="windowStatus"></div>			
+			
+			<div>	
+				<div class="ContentMiniBox">
+					<div id="header">
+						<div id="title"><i class="fa fa-external-link" aria-hidden="true"></i>
+						&nbsp;&nbsp;Редирект</div>
+						<div class="selecttop">
+							<select name="functionsSelect">
+								<option selected="selected" disabled>Действие</option>
+								<option value="rd1">Добавить</option>
+								<option value="rd3">Удалить</option>
+								<option value="rd2">Отключить</option>
+								<option value="rd5">Включить</option>
+							</select>
+						
+						</div>
+					</div>
+					<br><br>
+					<div id="content">
+						<div id="tablewrapper">
+							<div id="tableheader">
+								<div class="search">
+									<select id="columns" onchange="sorter.search('query')"></select>
+									<input type="text" id="query" onkeyup="sorter.search('query')" />
+								</div>
+								<span class="details">
+									<div>Номера <span id="startrecord"></span>-<span id="endrecord"></span> из <span id="totalrecords"></span></div>
+									<div><a href="javascript:sorter.reset()">Сброс</a></div>
+								</span>
+							</div>
+							<table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable">
+								<thead>
+									<tr>
+										<th><h3><input type="checkbox" name="opt" class='allcheck'></h3></th>
+
+										<th class='head'><h3>Название</h3></th>
+										<th class='head'><h3>Позиция</h3></th>
+										<th class='head'><h3>Создал</h3></th>
+										<th class='head'><h3>Дата</h3></th>
+										<th class='head'><h3>Статус</h3></th>
+									</tr>
+								</thead>
+									<tbody class="tbody">
+											<?php if($this->data[0]['from']) : ?>
+												<?php foreach($this->data as $key => $val): ?>
+													<tr data-id="<?=$val['id']; ?>">
+														<td><input type="checkbox" value="<?=$val['id']; ?>" name="listpos[]"/></td>
+														<td><a href="<?=$val['from']; ?>" target="_blank"><?=$val['from']; ?>	</a></td>
+														<td><?=$val['to']; ?></td>
+														<td><?=$val['user']; ?></td>
+														<td><?=$val['create_date']; ?></td>
+														<td>
+															<?php if($val['public']) : ?>
+																<div class="on">&nbsp;</div>
+															<?php else : ?>
+																<div class="off">&nbsp;</div>
+															<?php endif ?>
+														</td>
+													</tr>
+												<?php endforeach; ?>
+											<?php else : ?>
+												<tr class="no_data"><td colspan=4 >Нет данных</td></tr>
+											<?php endif; ?>	
+									</tbody>
+								</table>
+								<div id="tablefooter">
+							  <div id="tablenav">
+									<div>
+										<img src="/public/images/admin/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" />
+										<img src="/public/images/admin/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)" />
+										<img src="/public/images/admin/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)" />
+										<img src="/public/images/admin/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)" />
+									</div>
+									<div>
+										<select id="pagedropdown"></select>
+									</div>
+									<div>
+										<a href="javascript:sorter.showall()">Показать все</a>
+									</div>
+								</div>
+								<div id="tablelocation">
+									<div>
+										<select onchange="sorter.size(this.value)">
+										<option value="5" >5</option>
+											<option value="10" selected="selected">10</option>
+											<option value="20">20</option>
+											<option value="50" >50</option>
+											<option value="100" selected="selected">100</option>
+										</select>
+										<span>Количество на странице</span>
+									</div>
+									<div class="page">Страница <span id="currentpage"></span> из <span id="totalpages"></span></div>
+								</div>
+							</div>
+				
+							</div>		
+					</div>
+				</div>
+				</div>
+				
+				
+				
+		</div>
+		
+
+<?php endif; ?>

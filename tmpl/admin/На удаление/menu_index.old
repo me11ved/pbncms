@@ -1,0 +1,259 @@
+<?php if(Session::get('loggedIn') == true): ?> 
+
+		<!--content-->
+		<div class="TableContent">
+			
+			<div id='breadcrumbs'>
+				<div></div>
+			</div>
+			
+			<div class="windowStatus"></div>			
+			
+			<div class="popup" id="popup1" style="display:none;width:30%;">
+					<div id="header" class="popup_header">
+						<div id="title" class="fll">Новое меню</div>
+						<div id="setting" class="flr">
+							<span class="pointer" id="closePopup">&times;</span>
+						</div>
+					</div>
+					
+					<div id="content">
+						<div class="windowStatusPopup"></div>
+						<form action="javascript:void(0);" name='data'>
+						
+						<div>
+						<table id="hor-minimalist-b">
+							<tr>
+								<td>
+									<p>Название</p>
+								</td>
+								<td><input name='name' placeholder="Главное меню" value="" class="w100"></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Тег</p>
+								</td>
+								<td><input name='name_en' placeholder="nav_test1" value="nav_" class="w100"></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Опубликован </p>
+								</td>
+								<td><select name="public" class="w100">
+										<option value="1">Да</option>
+										<option value="0">Нет</option>
+									</select></td>
+							</tr>
+							<tr>
+							<td></td>
+							</tr>
+							<tr>
+								<td colspan=2><input type='submit' app-method="add_nav" class="ButtonStyle" value='Добавить'></td>
+							</tr>
+						</table>
+						</div>
+						
+						</form>
+						
+					</div>
+		</div>
+			
+			
+			<div class="popup" id="popup2" style="display:none;width:40%;">
+					<div id="header" class="popup_header" style="border:0;">
+						<div id="title" class="fll">Редактировать меню</div>
+						<div id="setting" class="flr">
+							<span class="pointer" id="closePopup">&times;</span>
+						</div>
+					</div>
+					<div id="content">
+						<div class="tabs">
+							<input id="tab1" type="radio" name="tabs" checked>
+							<label for="tab1" title="Меню">Меню</label>
+						 
+							<input id="tab2" type="radio" name="tabs">
+							<label for="tab2" title="Пункты">Пункты</label>
+						 
+							<section id="content-tab1">
+								<div class="windowStatusPopup" id="windowStatusPopup2"></div>
+								<form action="javascript:void(0);" name='data'>
+								
+								<div>
+								<table id="hor-minimalist-b">
+									<tr>
+										<td>
+											<p>Название</p>
+										</td>
+										<td><input name='name' placeholder="Главное меню" value="" class="w100"></td>
+									</tr>
+									<tr>
+										<td>
+											<p>Тег</p>
+										</td>
+										<td><input name='name_en' placeholder="nav_test1" value="nav_" class="w100"></td>
+									</tr>
+									<tr>
+										<td>
+											<p>Опубликован </p>
+										</td>
+										<td><select name="public" class="w100">
+												<option value="1">Да</option>
+												<option value="0">Нет</option>
+											</select></td>
+									</tr>
+									<tr>
+									<td></td>
+									</tr>
+									<tr>
+										<td colspan=2><input type='submit' app-method="save_nav" class="ButtonStyle" value='Сохранить'></td>
+									</tr>
+								</table>
+								</div>
+								
+								</form>
+							</section>
+							<section id="content-tab2">
+									<div class="searchForm">
+										<input type="text" name="searchInMenu" placeholder="Поиск пунктов" class="fl" />
+										<label class="fl"><input type="checkbox" name="inbd"/><span>Поиск в статьях</span></label>
+									</div>
+									<div class="dblock w100">
+										<div id="sortable1" class="dd w50 fl dblock">
+											<ol class="dd-list"></ol>
+										</div>
+										<div class="dd w50 fl dblock dd-dragzone2" id="sortable2">
+											<ol class="dd-list">
+												<li class="dd-item" data-id="new1">
+																	<div class="dd-handle dd3-handle">Drag</div>
+																	<div class="dd3-content">
+																		<div class='fl w85'>Тест</div>
+																			<div class='fr'>
+																				<span id='delicon'>x</span>
+																				<span id='plicon'>+</span>
+																			</div>
+																		</div>
+																	<div class='opisanie'>
+																		<form name='form' action='javascript:void(0);'>
+																			<input type='text' name='name' value='Тест'>
+																			<input type='text' name='href' value='/test'>
+																		</form>
+																	</div>
+												</ol>
+										</div>	
+									</div>	
+							</section>
+						</div>	
+					</div>
+					
+			</div>
+			
+			<div>	
+				<div class="ContentMiniBox">
+					<div id="header">
+						<div id="title"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Навигация</div>
+						<div class="selecttop">
+							<select name="functionsSelect">
+								<option selected="selected" disabled>Действие</option>
+								<option value="nav1">Создать</option>
+								<option value="nav2">Редактировать</option>
+								<option value="nav3">Отключить</option>
+								<option value="nav4">Включить</option>
+								<option value="nav5">Удалить</option>
+							
+							</select>
+						
+						</div>
+					</div>
+					<br><br>
+					<div id="content">
+						<div id="tablewrapper">
+							<div id="tableheader">
+								<div class="search">
+									<select id="columns" onchange="sorter.search('query')"></select>
+									<input type="text" id="query" onkeyup="sorter.search('query')" />
+								</div>
+								<span class="details">
+									<div>Номера <span id="startrecord"></span>-<span id="endrecord"></span> из <span id="totalrecords"></span></div>
+									<div><a href="javascript:sorter.reset()">Сброс</a></div>
+								</span>
+							</div>
+							<table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable">
+								<thead>
+									<tr>
+										<th><h3><input type="checkbox" name="opt" class='allcheck'></h3></th>
+										<th class='head'><h3>Название</h3></th>
+										<th class='head'><h3>Тег для шаблона</h3></th>
+										<th class='head'><h3>Кол-во пунктов</h3></th>
+										<th class='head'><h3>Состояние</h3></th>
+									</tr>
+								</thead>
+								<tbody class="tbody">
+									<?php if($this->data) : ?>
+										<?php foreach($this->data as $key => $val): ?>
+											<tr data-id="<?=$val['id']?>">
+												<td><input type="checkbox" value="<?=$val['id']?>" name="listpos[]"/></td>
+												<td><?=$val['name']; ?></td>
+												<td>{<?=$val['name_en']?>}</td>
+												<td><?=$val['point']?></td>
+												<td>
+															<?php if($val['public']) : ?>
+																<div class="on">&nbsp;</div>
+															<?php else : ?>
+																<div class="off">&nbsp;</div>
+															<?php endif ?>
+														</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php else : ?>
+										<tr>
+												<td>Нет данных</td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+										</tr>		
+									<?php endif; ?>	
+										</tbody>
+								</table>
+								<div id="tablefooter">
+							  <div id="tablenav">
+									<div>
+										<img src="/public/images/admin/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" />
+										<img src="/public/images/admin/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)" />
+										<img src="/public/images/admin/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)" />
+										<img src="/public/images/admin/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)" />
+									</div>
+									<div>
+										<select id="pagedropdown"></select>
+									</div>
+									<div>
+										<a href="javascript:sorter.showall()">Показать все</a>
+									</div>
+								</div>
+								<div id="tablelocation">
+									<div>
+										<select onchange="sorter.size(this.value)">
+										<option value="5" >5</option>
+											<option value="10" selected="selected">10</option>
+											<option value="20">20</option>
+											<option value="50" >50</option>
+											<option value="100" selected="selected">100</option>
+										</select>
+										<span>Количество на странице</span>
+									</div>
+									<div class="page">Страница <span id="currentpage"></span> из <span id="totalpages"></span></div>
+								</div>
+							</div>
+				
+							</div>		
+						
+					</div>
+				</div>
+				</div>
+				
+				
+				
+		</div>
+			
+			
+<?php endif; ?>

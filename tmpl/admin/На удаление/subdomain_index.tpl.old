@@ -1,0 +1,373 @@
+<?php if(Session::get('loggedIn') == true): ?> 
+
+		<!--content-->
+		<div class="TableContent">
+			<div id='breadcrumbs'>
+			</div>
+		<div class="tabs">
+				<input id="tab1" type="radio" name="tabs">
+				<label for="tab1" title="Зоны">Зоны</label>
+			 
+				<input id="tab2" type="radio" name="tabs" checked>
+				<label for="tab2" title="Поддомены">Поддомены</label>
+			 
+				<section id="content-tab1">
+				   <div class="popup" id="popup" style="display:none;">
+								<div id="header" class="popup_header">
+									<div id="title" class="fll">Новый доменная зона</div>
+									<div id="setting" class="flr">
+										<span class="pointer" id="closePopup">&times;</span>
+									</div>
+								</div>
+								
+								<div id="content">
+									<div class="windowStatusPopup">
+									</div>
+									<form action="javascript:void(0);" name='data'>
+									<table id="hor-minimalist-b">
+										<tr>
+											<td>Домменая зона </td><td><input name='name' placeholder="com" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Телефон</td><td><input name='telephone' placeholder="" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Email</td><td><input name='email' placeholder="" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Адрес</td><td><input name='address' placeholder="" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Время работы</td><td><input name='worktime' placeholder="" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>По умолчанию</td>
+											<td>
+												<select name="default" class="w100">
+													<option value="0" selected="selected">Нет</option>
+													<option value="1">Да</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Опубликован </td>
+											<td>
+												<select name="public" class="w100">
+													<option value="0">Нет</option>
+													<option value="1">Да</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td colspan=2><textarea name='subdomain' placeholder="Список поддоменов" class="w100"></textarea></td>
+										</tr>
+									</table>
+									<input type='submit' class="ButtonStyle" value='Добавить' app-method="add_zone">
+									</form>
+									
+								</div>
+					</div>
+					
+					<div class="windowStatus"></div>			
+						
+						<div>	
+							<div class="ContentMiniBox">
+								<div id="header">
+									<div id="title">Список зон</div>
+									<div class="selecttop">
+										<select name="functionsSelect">
+											<option selected="selected" disabled>Действие</option>
+											<option value="zone1">Добавить зону</option>
+											<option value="zone4">Редактировать зону</option>
+											<option value="zone2">Отключить зону</option>
+											<option value="zone5">Включить зону</op	tion>
+											<option value="zone3">Удалить зону</option>
+											
+										</select>
+									
+									</div>
+								</div>
+								<br><br>
+								<div id="content">
+									<div id="tablewrapper">
+										<div id="tableheader">
+											<div class="search">
+												<select id="columns" onchange="sorter1.search('query')"></select>
+												<input type="text" id="query" onkeyup="sorter1.search('query')" />
+											</div>
+											<span class="details">
+												<div>Номера <span id="startrecord"></span>-<span id="endrecord"></span> из <span id="totalrecords"></span></div>
+												<div><a href="javascript:sorter1.reset()">Сброс</a></div>
+											</span>
+										</div>
+										<table cellpadding="0" cellspacing="0" border="0" id="table_zone" class="tinytable">
+											<thead>
+												<tr>
+													<th class="nosort"><h3><input type="checkbox" name="opt" class='allcheck'></h3></th>
+
+													<th class='head'><h3>Название</h3></th>
+													<th class='head'><h3>Телефон</h3></th>
+													<th class='head'><h3>Email</h3></th>
+													<th class='head'><h3>Адрес</h3></th>
+													<th class='head'><h3>Время работы</h3></th>
+													<th class='head'><h3>Кол-во поддоменов</h3></th>
+													<th class='head'><h3>По умолчанию</h3></th>
+													<th class='head'><h3>Статус</h3></th>
+													<th class='head'><h3>Создан</h3></th>
+												</tr>
+											</thead>
+												<tbody class="tbody">
+														<?php if($this->data['zone'][0]['name']) : ?>
+															<?php foreach($this->data['zone'] as $key => $val): ?>
+																<tr data-id="<?php echo $val['name']; ?>">
+																	<td><input type="checkbox" value="<?php echo $val['name']; ?>" name="listpos[]"/></td>
+																	<td><?php echo $val['name']; ?></td>
+																	<td><?php echo $val['telephone']; ?></td>
+																	<td><?php echo $val['email']; ?></td>
+																	<td><?php echo $val['address']; ?></td>
+																	<td><?php echo $val['worktime']; ?></td>
+																	<td><?php echo $val['sub']; ?></td>
+																	<td>
+																		<?php if($val['default']) : ?>
+																			<div class="on">&nbsp;</div>
+																		<?php endif ?>
+																	</td>
+																	<td>
+																		<?php if($val['public']) : ?>
+																			<div class="on">&nbsp;</div>
+																		<?php else : ?>
+																			<div class="off">&nbsp;</div>
+																		<?php endif ?>
+																	</td>
+																	<td><?php echo $val['create_date']; ?></td>
+																</tr>
+															<?php endforeach; ?>
+														<?php else : ?>
+															<tr class="no_data" id="not_data_zone"><td colspan=4 >Нет данных</td></tr>
+														<?php endif; ?>	
+												</tbody>
+											</table>
+											<div id="tablefooter">
+										  <div id="tablenav">
+												<div>
+													<img src="/public/images/admin/first.gif" width="16" height="16" alt="First Page" onclick="sorter1.move(-1,true)" />
+													<img src="/public/images/admin/previous.gif" width="16" height="16" alt="First Page" onclick="sorter1.move(-1)" />
+													<img src="/public/images/admin/next.gif" width="16" height="16" alt="First Page" onclick="sorter1.move(1)" />
+													<img src="/public/images/admin/last.gif" width="16" height="16" alt="Last Page" onclick="sorter1.move(1,true)" />
+												</div>
+												<div>
+													<select id="pagedropdown"></select>
+												</div>
+												<div>
+													<a href="javascript:sorter1.showall()">Показать все</a>
+												</div>
+											</div>
+											<div id="tablelocation">
+												<div>
+													<select onchange="sorter1.size(this.value)">
+													<option value="5" >5</option>
+														<option value="10" selected="selected">10</option>
+														<option value="20">20</option>
+														<option value="50" >50</option>
+														<option value="100">100</option>
+													</select>
+													<span>Количество на странице</span>
+												</div>
+												<div class="page">Страница <span id="currentpage"></span> из <span id="totalpages"></span></div>
+											</div>
+										</div>
+							
+										</div>		
+								</div>
+							</div>
+							</div>
+					
+				</section>  
+				<section id="content-tab2">
+				<div class="popup" id="popup2" style="display:none;">
+								<div id="header" class="popup_header">
+									<div id="title" class="fll">Новый поддомен</div>
+									<div id="setting" class="flr">
+										<span class="pointer" id="closePopup">&times;</span>
+									</div>
+								</div>
+								
+								<div id="content">
+									<div class="windowStatusPopup" id="windowStatusPopup2">
+									</div>
+									<form action="javascript:void(0);" name='data'>
+									<table id="hor-minimalist-b">
+										<tr>
+											<td>Название</td><td><input name='name_ru' placeholder="Владимир" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>URL Адрес (лат.) <span class="tag">Не обязательное</a></td><td><input name='name_en' placeholder="vladimir" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Телефон</td><td><input name='phone' placeholder="8 (800) 222-11-11" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Email</td><td><input name='email' placeholder="otvet@site.ru" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Адрес</td><td><input name='adr' placeholder="г. Уфа, Революционная улица, 41" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Время работы</td><td><input name='time' placeholder="Пн-Пт 08:00-17:00" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Домменая зона </td><td><select name="id_zone" class="w100">
+													<option value="0" selected="selected">Нет</option>
+													<option value="1">Да</option>
+												</select></td>
+										</tr>
+										<tr>
+											<td>Статус </td>
+											<td>
+												<select name="public" class="w100">
+													<option value="0">Отключен</option>
+													<option value="1" selected="selected">Включен</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Сгенерировать контент</td>
+											<td>
+												  <input type="checkbox" name="create_content" value="0">
+											</td>
+										</tr>
+										<tr>
+											<td colspan=2>
+												 <div><input class="w100" name="replace_text" hidden placeholder="Какие слова заменяем, через запятую"></div>
+												  <div><input class="w100" name="replace_text2" hidden placeholder="На какие слова замена, через запятую"></div>
+											</td>
+										</tr>
+									</table>
+									<input type='submit' class="ButtonStyle" value='Добавить' app-method="add_subdomen">
+									</form>
+									
+								</div>
+					</div>
+					
+					<div class="windowStatus" id="windowStatus2"></div>	
+					<div>	
+							<div class="ContentMiniBox">
+								<div id="header">
+									<div id="title">Список поддоменов</div>
+									<div class="selecttop" style="width:auto;">
+										<select name="functionsSelect">
+											<option selected="selected" disabled>Действие</option>
+											<option value="sub1">Добавить</option>
+											<option value="sub2">Отключить</option>
+											<option value="sub3">Удалить</option>
+											<option value="sub4">Редактировать</option>
+											<option value="sub5">Включить</option>
+										</select>
+									
+									</div>
+								</div>
+								<br><br>
+								<div id="content">
+									<div id="tablewrapper">
+										<div id="tableheader">
+											<div class="search">
+												<select id="columns1" onchange="sorter2.search('query')"></select>
+												<input type="text" id="query1" onkeyup="sorter2.search('query')" />
+											</div>
+											<span class="details">
+												<div>Номера <span id="startrecord1"></span>-<span id="endrecord1"></span> из <span id="totalrecords1"></span></div>
+												<div><a href="javascript:sorter2.reset()">Сброс</a></div>
+											</span>
+										</div>
+										<table cellpadding="0" cellspacing="0" border="0" id="table_subdomain" class="tinytable">
+											<thead>
+												<tr>
+													<th class="nosort"><h3><input type="checkbox" name="opt" class='allcheck'></h3></th>
+													<th class='head1'><h3>Название</h3></th>
+													<th class='head1'><h3>Домен</h3></th>
+													<th class='head1'><h3>Зона</h3></th>
+													<th class='head1'><h3>Телефон</h3></th>
+													<th class='head1'><h3>Email</h3></th>
+													<th class='head1'><h3>Адрес</h3></th>
+													<th class='head1'><h3>Время работы</h3></th>
+													<th class='head1'><h3>Статус</h3></th>
+												</tr>
+											</thead>
+												<tbody class="tbody">
+														<?php if($this->data['subdomain'][0]['name_ru']) : ?>
+															<?php foreach($this->data['subdomain'] as $key => $val): ?>
+																<tr data-id="<?php echo $val['name_ru']; ?>">
+																	<td><input type="checkbox" value="<?=$val['id']?>" name="listpos[]"/></td>
+																	<td><?php echo $val['name_ru']; ?></td>
+																	<td><?php echo $val['name_en']; ?></td>
+																	<td><?php echo $val['zone']; ?></td>
+																	<td><?php echo $val['phone']; ?></td>
+																	<td><?php echo $val['email']; ?></td>
+																	<td><?php echo $val['adr']; ?></td>
+																	<td><?php echo $val['time']; ?></td>
+																	<td>
+																		<?php if($val['public']) : ?>
+																			<div class="on">&nbsp;</div>
+																		<?php else : ?>
+																			<div class="off">&nbsp;</div>
+																		<?php endif ?>
+																	</td>
+																</tr>
+															<?php endforeach; ?>
+														<?php else : ?>
+															<tr class="no_data" id="not_data_sub"><td colspan=9 >Нет данных</td></tr>
+														<?php endif; ?>	
+												</tbody>
+											</table>
+											<div id="tablefooter">
+										  <div id="tablenav1">
+												<div>
+													<img src="/public/images/admin/first.gif" width="16" height="16" alt="First Page" onclick="sorter2.move(-1,true)" />
+													<img src="/public/images/admin/previous.gif" width="16" height="16" alt="First Page" onclick="sorter2.move(-1)" />
+													<img src="/public/images/admin/next.gif" width="16" height="16" alt="First Page" onclick="sorter2.move(1)" />
+													<img src="/public/images/admin/last.gif" width="16" height="16" alt="Last Page" onclick="sorter2.move(1,true)" />
+												</div>
+												<div>
+													<select id="pagedropdown1"></select>
+												</div>
+												<div>
+													<a href="javascript:sorter2.showall()">Показать все</a>
+												</div>
+											</div>
+											<div id="tablelocation1">
+												<div>
+													<select onchange="sorter2.size(this.value)">
+													<option value="5" >5</option>
+														<option value="10">10</option>
+														<option value="20">20</option>
+														<option value="50" selected="selected">50</option>
+														<option value="100" >100</option>
+													</select>
+													<span>Количество на странице</span>
+												</div>
+												<div class="page">Страница <span id="currentpage1"></span> из <span id="totalpages1"></span></div>
+											</div>
+										</div>
+							
+										</div>		
+								</div>
+							</div>
+								<div>
+								<p>Список:</p>
+								<div style="display:inline-block;font-size::11px;" >
+								<?php foreach($this->data['subdomain'] as $k3 => $v3): ?><?=$v3['name_en'].".".$_SERVER['HTTP_HOST']?>,
+								<?php endforeach; ?>	
+								</div>
+							</div>
+							</div>
+				</section> 
+			 
+			</div>
+		
+		
+				
+		</div>
+		
+	
+
+<?php endif; ?>

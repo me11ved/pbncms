@@ -1,0 +1,236 @@
+<?php if(Session::get('loggedIn') == true): ?> 
+
+<?php if(Session::get('sid2') == "admin"): ?> 
+
+		<!--content-->
+		<div class="TableContent">
+			
+			<div id='breadcrumbs'>
+				<div></div>
+			</div>
+			
+			<div class="windowStatus"></div>			
+			
+			<div class="popup" id="popup1" style="display:none;width:30%;">
+					<div id="header" class="popup_header">
+						<div id="title" class="fll">Новый пользователь</div>
+						<div id="setting" class="flr">
+							<span class="pointer" id="closePopup">&times;</span>
+						</div>
+					</div>
+					
+					<div id="content">
+						<div class="windowStatusPopup"></div>
+						<form action="javascript:void(0);" name='data'>
+						
+						<div>
+						<table id="hor-minimalist-b">
+							<tr>
+								<td>
+									<p>Фамилия</p>
+								</td>
+								<td><input name='surname' placeholder="Иванов" value="" class="w100"></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Имя</p>
+								</td>
+								<td><input name='name' placeholder="Иван" value="" class="w100"></td>
+							</tr>
+							<tr>
+								<td>
+									<p><b>Логин</b></p>
+								</td>
+								<td>
+									<input name='login' placeholder="ivan" value="" class="w100">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p><b>Пароль</b></p>
+								</td>
+								<td>
+									<input name='password' placeholder="***" value="" class="w100">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>Комментарий</p>
+								</td>
+								<td>
+									<input name='comment' type="text" class="w100">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>Статус</p>
+								</td>
+								<td>
+									<select name="active" class="w100">
+										<option value="1">Включен</option>
+										<option value="0">Отключен</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>Права</p>
+								</td>
+								<td>
+									<select name="role" class="w100">
+										<option value="user">Пользователь</option>
+										<option value="webmaster">Вебмастер</option>
+										<option value="admin">Администратор</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>Доступ к API</p>
+								</td>
+								<td>
+									<input name='api' type="checkbox" class="w100">
+								</td>
+							</tr>
+							<tr>
+							<td></td>
+							</tr>
+							<tr>
+								<td colspan=2><input type='submit' app-method="add_user" class="ButtonStyle" value='Добавить'></td>
+							</tr>
+						</table>
+						</div>
+						
+						</form>
+						
+					</div>
+		</div>
+			
+			<div>	
+				<div class="ContentMiniBox">
+					<div id="header">
+						<div id="title"><i class="fa fa-user" aria-hidden="true"></i>
+									&nbsp;Пользователи</div>
+						<div class="selecttop">
+							<select name="functionsSelect">
+								<option selected="selected" disabled>Действие</option>
+								<option value="user1">Создать</option>
+								<option value="user4">Редактировать</option>
+								<option value="user2">Отключить</option>
+								<option value="user5">Включить</option>
+								<option value="user3">Удалить</option>
+							
+							</select>
+						
+						</div>
+					</div>
+					<br><br>
+					<div id="content">
+						<div id="tablewrapper">
+							<div id="tableheader">
+								<div class="search">
+									<select id="columns" onchange="sorter.search('query')"></select>
+									<input type="text" id="query" onkeyup="sorter.search('query')" />
+								</div>
+								<span class="details">
+									<div>Номера <span id="startrecord"></span>-<span id="endrecord"></span> из <span id="totalrecords"></span></div>
+									<div><a href="javascript:sorter.reset()">Сброс</a></div>
+								</span>
+							</div>
+							<table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable">
+								<thead>
+									<tr>
+										<th>
+											<h3>
+												<input type="checkbox" name="opt" class='allcheck'>
+											</h3>
+										</th>
+										<th class='head'><h3>Имя</h3></th>
+										<th class='head'><h3>Роль</h3></th>
+										<th class='head'><h3>Дата входа</h3></th>
+										<th class='head'><h3>Комментарий</h3></th>
+										<th class='head'><h3>API ключ</h3></th>
+										<th class='head'><h3>Статус</h3></th>
+										<th class='head'><h3>Логин/Пароль</h3></th>
+									</tr>
+								</thead>
+								<tbody class="tbody">
+									<?php if($this->data) : ?>
+										<?php foreach($this->data as $key => $val): ?>
+											<tr data-id="<?=$val['id']?>">
+												<td><input type="checkbox" value="<?=$val['id']?>" name="listpos[]"/></td>
+												<td><?=$val['name']; ?></td>
+												<td><?=$val['role']?></td>
+												<td><?=$val['last_in']?></td>
+												<td><?=$val['comment']?></td>
+												<td><?=$val['api_key']?></td>
+												<td>
+													<?php if($val['active']) : ?>
+														<div class="on">&nbsp;</div>
+													<?php else : ?>
+														<div class="off">&nbsp;</div>
+													<?php endif ?>
+												</td>
+												<td>-</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php else : ?>
+										<tr>
+												<td>Нет данных</td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+										</tr>		
+									<?php endif; ?>	
+										</tbody>
+								</table>
+								<div id="tablefooter">
+							  <div id="tablenav">
+									<div>
+										<img src="/public/images/admin/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" />
+										<img src="/public/images/admin/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)" />
+										<img src="/public/images/admin/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)" />
+										<img src="/public/images/admin/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)" />
+									</div>
+									<div>
+										<select id="pagedropdown"></select>
+									</div>
+									<div>
+										<a href="javascript:sorter.showall()">Показать все</a>
+									</div>
+								</div>
+								<div id="tablelocation">
+									<div>
+										<select onchange="sorter.size(this.value)">
+										<option value="5" >5</option>
+											<option value="10" selected="selected">10</option>
+											<option value="20">20</option>
+											<option value="50" >50</option>
+											<option value="100" selected="selected">100</option>
+										</select>
+										<span>Количество на странице</span>
+									</div>
+									<div class="page">Страница <span id="currentpage"></span> из <span id="totalpages"></span></div>
+								</div>
+							</div>
+				
+							</div>		
+						
+					</div>
+				</div>
+				</div>
+				
+			<?php if($this->data) : ?>
+				<script src="/public/js/runtinytable.js"></script>
+			<?php endif; ?>	
+				
+		</div>
+		
+<?php else: ?>
+		
+		<p>Нет доступа в данный раздел</p>
+		
+<?php endif; ?>		
+			
+<?php endif; ?>

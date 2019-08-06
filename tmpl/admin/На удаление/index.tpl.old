@@ -1,0 +1,322 @@
+<?php if(Session::get('loggedIn') == true): ?> 
+		
+		<div class="ContentMiniBox">
+			<div id="header">
+				<div id="title"><i class="fa fa-home"></i>&nbsp;
+					Статистика
+				</div>
+			</div>
+		</div>
+		</br>
+		<!--content-->
+			<div class="tabs">
+				<input id="tab1" type="radio" name="tabs" checked>
+				<label for="tab1" title="Статистика">Статистика</label>
+				
+				<input id="tab2" type="radio" name="tabs">
+				<label for="tab2" title="Страницы">Страницы</label>
+			 
+				<section id="content-tab1">
+				   <div class="popup" id="popup" style="display:none;">
+								<div id="header" class="popup_header">
+									<div id="title" class="fll">Новый доменная зона</div>
+									<div id="setting" class="flr">
+										<span class="pointer" id="closePopup">&times;</span>
+									</div>
+								</div>
+								
+								<div id="content">
+									<div class="windowStatusPopup">
+									</div>
+									<form action="javascript:void(0);" name='data'>
+									<table id="hor-minimalist-b">
+										<tr>
+											<td>Домменая зона </td><td><input name='name' placeholder="com" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Телефон</td><td><input name='telephone' placeholder="" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Email</td><td><input name='email' placeholder="" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Адрес</td><td><input name='address' placeholder="" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Время работы</td><td><input name='worktime' placeholder="" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>По умолчанию</td>
+											<td>
+												<select name="default" class="w100">
+													<option value="0" selected="selected">Нет</option>
+													<option value="1">Да</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Опубликован </td>
+											<td>
+												<select name="public" class="w100">
+													<option value="0">Нет</option>
+													<option value="1">Да</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td colspan=2><textarea name='subdomain' placeholder="Список поддоменов" class="w100"></textarea></td>
+										</tr>
+									</table>
+									<input type='submit' class="ButtonStyle" value='Добавить' app-method="add_zone">
+									</form>
+									
+								</div>
+					</div>
+					
+					<div class="windowStatus"></div>			
+						
+						<div>
+				<div class="Flleft30">
+					<div id="header">
+						<div id="title">Страницы</div>
+						<div id="setting"></div>
+					</div>
+					<div id="content">
+						<div style="float: left; font-size: 70px; margin: 7px"><?php echo $this->datastatic['all']; ?></div>
+						<div style="float: left;margin: 7px;">
+							<ul>
+								<li>Опубликованы <b><?php echo $this->datastatic['on']; ?></b></li>
+								<li>Отключены <b><?php echo $this->datastatic['off']; ?></b></li>
+						</div>
+					</div>
+				</div>
+				
+				<div class="Flleft30">
+					<div id="header">
+						<div id="title">Заявки</div>
+						<div id="setting"></div>
+					</div>
+					<div id="content">
+						<div style="float: left; font-size: 70px; margin: 7px"><?php echo $this->ordersstatic[0]['countOrders']; ?></div>
+						<div style="float: left;margin: 7px;">
+							<ul>
+								<li>Yandex <b><?php echo $this->ordersstatic[0]['CountYandex']; ?></b></li>
+								<li>Google <b><?php echo $this->ordersstatic[0]['CountGoogle']; ?></b></li>
+								<li>Дата последней:</br> <b><?php echo $this->ordersstatic[0]['Last']; ?></b></li>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Clear">&nbsp;</div>
+							<div>
+				<div>
+					<div class="header1">
+						Заявки на этой недели (<span id='countsearch'><?php echo count($this->data2); ?></span>)
+						
+					</div>
+					<div id="content">
+						
+							<table cellpadding="0" cellspacing="0" border="0" class="tinytable">
+								<thead>
+									<tr>
+										
+										<th class='head'><h3>Имя</h3></th>
+										<th class='head'><h3>Телефон</h3></th>
+										<th class='head'><h3>Время</h3></th>
+										<th class='head'><h3>Тел.Регион</h3></th>
+										<th class='head'><h3>IP.регион</h3></th>
+										<th class='head'><h3>Хост</h3></th>	
+										<th class='head'><h3>Форма</h3></th>
+										<th class='head'><h3>Запрос</h3></th>
+										<th class='head'>-</th>
+									</tr>
+								</thead>
+								<tbody class="tbody">
+										<?php foreach($this->data2 as $key => $val): ?>
+											<tr>
+												<td><?php echo $val['name']; ?></td>
+												<td><a href="tel:<?php echo $val['phone']; ?>"><?=$val['phone']?></a></td>
+												<td><?php echo $val['time']; ?></td>
+												<td><?php echo $val['phone_region']; ?></span></td>
+												<td><?php echo $val['ip_city']; ?></span></td>
+												<td><?php echo $val['host']; ?></span></td>
+												<td><?php echo $val['form']; ?></span></td>
+												<td><?php echo $val['query']; ?></span></td>
+												<td><a href="/requests/vieworder/<?php echo $val['client_id']; ?>/?key=<?php echo $val['phone']; ?>" target="_blank" title="Перейти"><i class="fa fa-external-link" aria-hidden="true"></i></a>&nbsp;</td>
+											</tr>
+										<?php endforeach; ?>
+									</tbody>
+									</table>
+						</tbody>
+								</table>
+							
+				
+							</div>
+					</div>
+				</div>
+					
+				</section>  
+				<section id="content-tab2">
+				<div class="popup" id="popup2" style="display:none;">
+								<div id="header" class="popup_header">
+									<div id="title" class="fll">Новый поддомен</div>
+									<div id="setting" class="flr">
+										<span class="pointer" id="closePopup">&times;</span>
+									</div>
+								</div>
+								
+								<div id="content">
+									<div class="windowStatusPopup" id="windowStatusPopup2">
+									</div>
+									<form action="javascript:void(0);" name='data'>
+									<table id="hor-minimalist-b">
+										<tr>
+											<td>Название</td><td><input name='name_ru' placeholder="Владимир" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>URL Адрес (лат.) <span class="tag">Не обязательное</a></td><td><input name='name_en' placeholder="vladimir" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Телефон</td><td><input name='phone' placeholder="8 (800) 222-11-11" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Email</td><td><input name='email' placeholder="otvet@site.ru" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Адрес</td><td><input name='adr' placeholder="г. Уфа, Революционная улица, 41" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Время работы</td><td><input name='time' placeholder="Пн-Пт 08:00-17:00" value="" class="w100"></td>
+										</tr>
+										<tr>
+											<td>Домменая зона </td><td><select name="id_zone" class="w100">
+													<option value="0" selected="selected">Нет</option>
+													<option value="1">Да</option>
+												</select></td>
+										</tr>
+										<tr>
+											<td>Статус </td>
+											<td>
+												<select name="public" class="w100">
+													<option value="0">Отключен</option>
+													<option value="1" selected="selected">Включен</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Сгенерировать контент</td>
+											<td>
+												  <input type="checkbox" name="create_content" value="0">
+											</td>
+										</tr>
+										<tr>
+											<td colspan=2>
+												 <div><input class="w100" name="replace_text" hidden placeholder="Какие слова заменяем, через запятую"></div>
+												  <div><input class="w100" name="replace_text2" hidden placeholder="На какие слова замена, через запятую"></div>
+											</td>
+										</tr>
+									</table>
+									<input type='submit' class="ButtonStyle" value='Добавить' app-method="add_subdomen">
+									</form>
+									
+								</div>
+					</div>
+					
+					<div class="windowStatus" id="windowStatus2"></div>	
+					<div>	
+							<div class="ContentMiniBox">
+								<div>
+					<div class="header1">
+						Последние обновленные страницы (<span id='countsearch'><?php echo count($this->pagelu); ?></span>)
+						
+					</div>
+					<div id="content">
+							
+							<table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable">
+								<thead>
+									<tr>
+										<th class='head'><h3>Дата</h3></th>
+										<th class='head'><h3>Пользователь</h3></th>
+										<th class='head'><h3>Название</h3></th>
+										<th class='head'><h3>Категория</h3></th>
+										<th class='head'><h3>-</h3></th>
+										<th class='head'><h3>On/Off</h3></th>	
+									</tr>
+								</thead>
+								<tbody class="tbody">
+										<?php foreach($this->pagelu as $key => $val): ?>
+											<tr>
+												<td><?php echo $val['update_date']; ?></td>
+												<td><?php echo $val['user']; ?></td>
+												<td><?php echo $val['title']; ?></td>
+												<td><?php echo $val['category']; ?></td>
+												<td>
+													<a href="<?php echo $val['href'].".html"; ?>" target="_blank" title="Перейти"><i class="fa fa-external-link" aria-hidden="true"></i></a>&nbsp;
+													<a href="/admin/edit_position/?type=page&list=<?php echo $val['id']; ?>" target="_blank" title="Редактировать"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+												</td>
+												<td>
+													<?php if($val['public']) : ?>
+														<div class="on">&nbsp;</div>
+													<?php else : ?>
+														<div class="off">&nbsp;</div>
+													<?php endif ?>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									</tbody>
+								</table>
+							
+				
+							</div>	
+					</div>
+				</br></br>
+				<div>
+					<div class="header1">
+						Новые страницы (<span id='countsearch'><?php echo count($this->pagel); ?></span>)
+						
+					</div>
+					<div id="content">
+							
+							<table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable">
+								<thead>
+									<tr>
+										<th class='head'><h3>Дата</h3></th>
+										<th class='head'><h3>Пользователь</h3></th>
+										<th class='head'><h3>Название</h3></th>
+										<th class='head'><h3>Категория</h3></th>
+										<th class='head'><h3>-</h3></th>
+										<th class='head'><h3>On/Off</h3></th>	
+									</tr>
+								</thead>
+								<tbody class="tbody">
+										<?php foreach($this->pagel as $key => $val): ?>
+											<tr>
+												<td><?php echo $val['create_date']; ?></td>
+												<td><?php echo $val['user']; ?></td>
+												<td><?php echo $val['title']; ?></td>
+												<td><?php echo $val['category']; ?></td>
+												<td>
+													<a href="<?php echo $val['href'].".html"; ?>" target="_blank" title="Перейти"><i class="fa fa-external-link" aria-hidden="true"></i></a>&nbsp;
+													<a href="/admin/edit_position/?type=page&list=<?php echo $val['id']; ?>" target="_blank" title="Редактировать"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+												</td>
+												<td>
+													<?php if($val['public']) : ?>
+														<div class="on">&nbsp;</div>
+													<?php else : ?>
+														<div class="off">&nbsp;</div>
+													<?php endif ?>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									</tbody>
+								</table>
+							
+				
+							</div>	
+					</div>
+							</div>
+							</div>
+				</section> 
+			 
+			</div>
+<?php endif; ?>

@@ -1,0 +1,156 @@
+<?php if(Session::get('loggedIn') == true): ?> 
+
+		<!--content-->
+		<div class="TableContent">
+			<div id='breadcrumbs'></div>
+		
+		<div class="windowStatus"></div>	
+		
+		<div class="popup" style="display:none;">
+					<div id="header" class="popup_header">
+						<div id="title" class="fll">Новый тег</div>
+						<div id="setting" class="flr">
+							<span class="pointer" id="closePopup">&times;</span>
+						</div>
+					</div>
+					
+					<div id="content">
+						<div class="windowStatusPopup"></div>
+						<form action="javascript:void(0);" name='data'>
+						<table id="hor-minimalist-b">
+							<tr>
+								<td>Название <span class="tag">Я.Метрика</span></td><td><input name='name' placeholder="my script" value="" class="w100"></td>
+							</tr>
+							<tr>
+								<td>Позиция <span class="tag">шапка или подвал</span></td><td><select name="position" class="w100"><option value="header">Header</option><option value="footer">Footer</option></select></td>
+							</tr>
+							<tr>
+								<td>Опубликован </td><td><select name="public" class="w100"><option value="1">Да</option><option value="0">Нет</option></select></td>
+							</tr>
+							<tr>
+								<td>Шаблон тегов </td>
+								<td>
+									<span onclick="addScriptTag('script')" style="float: left;color: blue; text-decoration: underline; cursor: pointer; margin: 0 5px;">script</span>
+									
+									<span onclick="addScriptTag('style')" style="float: left;color: blue; text-decoration: underline; cursor: pointer; margin: 0 5px;">style</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan=2><textarea name='text' placeholder="Код скрипта с тегами css или javascript" class="w100"></textarea></td>
+							</tr>
+						</table>
+						<input type='submit' class="ButtonStyle" value='Добавить' app-method="add_tag">
+						</form>
+						
+					</div>
+		</div>
+			
+			<div>	
+				<div class="ContentMiniBox">
+					<div id="header">
+						<div id="title"><i class="fa fa-code" aria-hidden="true"></i>
+						&nbsp;Тег менеджер</div>
+						<div class="selecttop">
+							<select name="functionsSelect">
+								<option selected="selected" disabled>Действие</option>
+								<optgroup label="Тег">
+									<option value="tag1">Добавить</option>
+									<option value="tag4">Редактировать</option>
+								</optgroup>
+								<optgroup label="Групповые операции">
+									<option value="tag2">Отключить</option>
+									<option value="tag5">Включить</option>
+									<option value="tag3">Удалить</option>
+								</optgroup>
+							</select>
+						
+						</div>
+					</div>
+					<br><br>
+					<div id="content">
+						<div id="tablewrapper">
+							<div id="tableheader">
+								<div class="search">
+									<select id="columns" onchange="sorter.search('query')"></select>
+									<input type="text" id="query" onkeyup="sorter.search('query')" />
+								</div>
+								<span class="details">
+									<div>Номера <span id="startrecord"></span>-<span id="endrecord"></span> из <span id="totalrecords"></span></div>
+									<div><a href="javascript:sorter.reset()">Сброс</a></div>
+								</span>
+							</div>
+							<table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable">
+								<thead>
+									<tr>
+										<th><h3><input type="checkbox" name="opt" class='allcheck'></h3></th>
+
+										<th class='head'><h3>Название</h3></th>
+										<th class='head'><h3>Позиция</h3></th>
+										<th class='head'><h3>Статус</h3></th>
+									</tr>
+								</thead>
+									<tbody class="tbody">
+											<?php if($this->data[0]['name']) : ?>
+												<?php foreach($this->data as $key => $val): ?>
+													<tr data-id="<?php echo $val['name']; ?>">
+														<td><input type="checkbox" value="<?php echo $val['name']; ?>" name="listpos[]"/></td>
+														<td><?php echo $val['name']; ?></td>
+														<td><?php echo $val['position']; ?></td>
+														<td>
+															<?php if($val['public']) : ?>
+																<div class="on">&nbsp;</div>
+															<?php else : ?>
+																<div class="off">&nbsp;</div>
+															<?php endif ?>
+														</td>
+													</tr>
+												<?php endforeach; ?>
+											<?php else : ?>
+												<tr class="no_data"><td colspan=4 >Нет данных</td></tr>
+											<?php endif; ?>	
+									</tbody>
+								</table>
+								<div id="tablefooter">
+							  <div id="tablenav">
+									<div>
+										<img src="/public/images/admin/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" />
+										<img src="/public/images/admin/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)" />
+										<img src="/public/images/admin/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)" />
+										<img src="/public/images/admin/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)" />
+									</div>
+									<div>
+										<select id="pagedropdown"></select>
+									</div>
+									<div>
+										<a href="javascript:sorter.showall()">Показать все</a>
+									</div>
+								</div>
+								<div id="tablelocation">
+									<div>
+										<select onchange="sorter.size(this.value)">
+										<option value="5" >5</option>
+											<option value="10" selected="selected">10</option>
+											<option value="20">20</option>
+											<option value="50" >50</option>
+											<option value="100" selected="selected">100</option>
+										</select>
+										<span>Количество на странице</span>
+									</div>
+									<div class="page">Страница <span id="currentpage"></span> из <span id="totalpages"></span></div>
+								</div>
+							</div>
+				
+							</div>		
+					</div>
+				</div>
+				</div>
+				
+				
+				
+		</div>
+		
+		<?php if($this->data) : ?>
+			<script src="/public/js/runtinytable.js"></script>
+		<?php endif; ?>
+		
+<?php endif; ?>

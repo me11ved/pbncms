@@ -1,0 +1,206 @@
+<html><head><!-- Required meta tags --><!-- Required meta tags --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!-- Bootstrap CSS --><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"><link rel="stylesheet" href="/public/css/style_faq.css">			    <title>Настройка шаблона для сайта</title></head><body><header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar bg-dark faq_logo"><a href="/" alt="PBNcms" class="icon"><div>PBN</div><div class="cms">cms</div></a><div class="navbar-nav-scroll"><ul class="navbar-nav bd-navbar-nav flex-row"><li class="nav-item"><a class="nav-link " href="/">Главная</a></li><li class="nav-item"><a class="nav-link active" href="/docs/" onclick="">Документация</a></li><!-- <li class="nav-item"> --><!-- <a class="nav-link " href="/" onclick="">Тарифы</a> --><!-- </li> --><!-- <li class="nav-item"> --><!-- <a class="nav-link" href="" target="_blank" rel="noopener">Контакты</a> --><!-- </li> --><li class="nav-item"><a class="nav-link" href="" target="_blank" rel="noopener">Блог</a></li></ul></div></header><div class="containter-fluid"><div class="row"><div class="col-md-2"><div class="row"><div class="col-md-1">&nbsp;</div><div class="col-md-10"><form role="form" class="vertical-center"><div class="form-group"><label for="Поиск"></label><input type="text" class="form-control" id="search_nav" placeholder="Поиск в навигации"><!-- <p class="help-block">Подсказка</p> --></div></form></div><div class="col-md-1">&nbsp;</div></div><div class="row"><div class="col-md-1"></div><div class="col-md-10"><nav><ul class="nav flex-column"><li class="nav-header"><a href="" class="nav-link">Установка</a></li><li class="nav-item dropdown"><a class="nav-link"href="#">Первая настройка</a></li><li class="nav-item"><a href="/docs/template" class="nav-link">Шаблонизатор</a></li><li class="nav-item"><a href="/docs/panel" class="nav-link">Панель администратора</a></li><li class="nav-item"><a href="/docs/api" class="nav-link">API</a></li></ul></nav></div><div class="col-md-1"></div></div></div><main class="col-md-8"><div class="d-inline-block faq_breadcrumb">			<ul><li><a href='/'>Главная</a></li><li><a href='/docs.html'>Док</a></li><li><span>Шаблонизатор</span></li></ul>		</div><h1>Шаблонизатор</h1><p class="faq_description"><p>Данный модуль позволяет произвести гибкие настройки шаблона. Вывести необходимы материал в нужных местах или подставить данные с помощью тегов</p>
+
+<h2>Параметры</h2>
+
+<p>Основные параметры задаются вфайле&nbsp;<i>config.php&nbsp;</i>который находится в папке с сайтом</p>
+
+<table class="table table-bordered table-hover table-active">
+	<thead>
+		<tr>
+			<th scope="col">Название</th>
+			<th scope="col">Значение</th>
+			<th scope="col">По умолчанию</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><b>define(&#39;TEMPLATE&#39;,&#39;default&#39;)</b></td>
+			<td>Название папки с шаблоном для сайта&nbsp;(сейчас default)</td>
+			<td>&nbsp;default</td>
+		</tr>
+		<tr>
+			<td><b>define(&#39;JS&#39;,&#39;/public/js/&#39;)</b></td>
+			<td>Путь до папки js-скриптами</td>
+			<td>/public/js/</td>
+		</tr>
+		<tr>
+			<td><b>define(&#39;CSS&#39;,&#39;/public/css/&#39;)</b></td>
+			<td>Путь до папки со стилями css</td>
+			<td>/public/css/</td>
+		</tr>
+		<tr>
+			<td><b>define(&#39;IMG&#39;,&#39;/public/images/&#39;)</b></td>
+			<td>Путь до папки с картинками для темы</td>
+			<td>/public/images/</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Файлы</h2>
+
+<p>В шаблоне по умолчанию используются заданные имена файлов для отображения пользователю</p>
+
+<table class="table table-bordered table-hover table-active">
+	<tbody>
+		<tr>
+			<td>Имя</td>
+			<td>Модуль</td>
+			<td>Сквозная подгрузка</td>
+		</tr>
+		<tr>
+			<td>
+			<p><b>header.tpl</b></p>
+			</td>
+			<td>Вверхяя часть сайта</td>
+			<td>Да</td>
+		</tr>
+		<tr>
+			<td><b>menu.tpl</b></td>
+			<td>Навигация</td>
+			<td>Да</td>
+		</tr>
+		<tr>
+			<td><b>index.tpl</b></td>
+			<td>Главная страница</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td><b>category.tp</b></td>
+			<td>Категория</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td><b>product.tpl</b></td>
+			<td>Страница с привязкой к категории</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td><b>static.tpl</b></td>
+			<td>Статическая страница (например, о компании)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td><b>404.tpl</b></td>
+			<td>Шаблон неверного URL</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td><b>sitemap_xml.tpl</b></td>
+			<td>Динамическая карта сайта в формате xml</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td><b>rss_xml.tpl</b></td>
+			<td>Динамический RSS с разметкой яндекс-турбо страниц</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td><b>scripts.tpl</b>&nbsp;</td>
+			<td>При включенном кэше подгружается всегда скрипты с динамическими параметрами</td>
+			<td>Да</td>
+		</tr>
+		<tr>
+			<td><b>footer.tpl</b></td>
+			<td>Нижняя часть - подгружается на всех страницах сайта</td>
+			<td>Да</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<p>Для любой страницы можно создать свой шаблон по его URL.</p>
+
+<p>Для примера, у нас есть потребность создать уникальный шаблон для страницы <em>контакты&nbsp;</em>и для всех страницы категории&nbsp;<em>блог.</em></p>
+
+<p>Мы знаем, что URL у страницы <em>контакты&nbsp; -&nbsp;</em><strong>contacts </strong>поэтому создаем в папке с темой файл с именем&nbsp;<strong>contacts.tpl</strong></p>
+
+<p>Теперь рассмотрим процесс создания шаблона для всех страниц в категории&nbsp;<em>блог, </em>URL - <strong>blog, </strong>создадим файл в папке с темой&nbsp;<strong>blog_category.tpl</strong></p>
+
+<h2>Теги</h2>
+
+<p>С помощью тегов в шаблоне&nbsp; можно выводить поля, для вывода тега заключите его в скобки например, тег&nbsp;<em>{meta_title}</em></p>
+
+<table class="table table-bordered table-hover table-active">
+	<tbody>
+		<tr>
+			<td>Имя</td>
+			<td>Описание</td>
+		</tr>
+		<tr>
+			<td><b>meta_title</b></td>
+			<td>Поле meta title, предназначен для вывода в теге&nbsp;<b>&lt;title&gt;</b></td>
+		</tr>
+		<tr>
+			<td><b>meta_description</b>&nbsp;</td>
+			<td>Поле Meta description, предназначен для вывода в теге meta атрибут content</td>
+		</tr>
+		<tr>
+			<td><b>telephone</b></td>
+			<td>поле телефон, задается при создании&nbsp;зоны&nbsp;или&nbsp;поддомена</td>
+		</tr>
+		<tr>
+			<td><b>address</b></td>
+			<td>поле адрес, задается при создании&nbsp;зоны&nbsp;или&nbsp;поддомена</td>
+		</tr>
+		<tr>
+			<td><b>email</b></td>
+			<td>поле e-mail, задается при создании&nbsp;зоны&nbsp;или&nbsp;поддомена</td>
+		</tr>
+		<tr>
+			<td><b>h1</b></td>
+			<td>поле H1, предназначен для вывода в теге H1</td>
+		</tr>
+		<tr>
+			<td><b>description</b></td>
+			<td>Основной текст страницы</td>
+		</tr>
+		<tr>
+			<td><b>mini_description</b></td>
+			<td>Краткое описание страницы</td>
+		</tr>
+		<tr>
+			<td><b>avatar</b></td>
+			<td>Поле &quot;Путь до фото&quot;</td>
+		</tr>
+		<tr>
+			<td><b>pole1 - pole5</b></td>
+			<td>5 дополнительных полей</td>
+		</tr>
+		<tr>
+			<td><b>scripts_header</b></td>
+			<td>Список скриптов у которых позиция header</td>
+		</tr>
+		<tr>
+			<td><b>scripts_footer</b></td>
+			<td>Список скриптов у которых позиция footer</td>
+		</tr>
+		<tr>
+			<td><b>content_of_article</b></td>
+			<td>Выводит содержимое статьи на основании тегов h2</td>
+		</tr>
+		<tr>
+			<td><b>id_category</b></td>
+			<td>Выводит числовой идентификатор категории</td>
+		</tr>
+		<tr>
+			<td><b>id_product</b></td>
+			<td>Выводит числовой идентификатор страницы</td>
+		</tr>
+		<tr>
+			<td><b>title</b></td>
+			<td>Поле &quot;название&quot;</td>
+		</tr>
+		<tr>
+			<td><b>title_category</b></td>
+			<td>Название категории</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<h2>Запросы</h2>
+
+<p>В файле шаблона можно формировать запрос к базе данных для вывода нужного материала</p>
+</p></main><div class="col-md-2" style="background:#f9f9f9;"><pre></div></div></div><!-- Optional JavaScript --><!-- jQuery first, then Popper.js, then Bootstrap JS --><script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script></body></html>

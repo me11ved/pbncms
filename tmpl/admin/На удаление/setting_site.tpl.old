@@ -1,0 +1,233 @@
+<?php if(Session::get('loggedIn') == true): ?> 
+
+		<!--content-->
+		<div class="TableContent">
+			<div class="ContentMiniBox">
+					<div id="header">
+						<div id="title"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;<?=$this->title?></div>
+					</div>
+			</div>
+			<div class="alert" role="alert">
+			</div>
+			
+
+			
+			<form action="javascript:void(0);" name='settingSite'>
+			
+			<div class="tabs">
+				<input id="tab1" type="radio" name="tabs" checked>
+				<label for="tab1" title="Сайт">Cайт</label>
+			 
+				<input id="tab2" type="radio" name="tabs">
+				<label for="tab2" title="Заявки">Заявки</label>
+				<section id="content-tab1">
+					
+						<table id="hor-minimalist-b">
+							
+							<tr>
+								<td>
+									<span class="namelist">
+										<i class="fa fa-link" aria-hidden="true"></i> Расширение <b>*.html</b> в конце адреса страницы</span>
+									<p id="descriptiontag">
+										При активации опции на всех страницах сайт будет добавлено расширение html<br>
+										- Пример обычной страницы: <u>http://<?=$_SERVER['HTTP_HOST']?>/about</u><br>
+										- Пример при включении функции: <u>http://<?=$_SERVER['HTTP_HOST']?>/about.html</u> 
+									</p>
+									
+								<td>
+									<label class="switch">
+										<?php if ($this->data["extredirect"]) : ?>
+											<input type="checkbox" name="ext"  checked>
+										<?php else : ?>
+											<input type="checkbox" name="ext">
+										<?php endif; ?>
+									  <span class="slider"></span>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="namelist"><i class="fa fa-clone" aria-hidden="true"></i> Кэширование</span>
+									<p id="descriptiontag">
+									Создает копию файла страницы, значительно ускоряет загрузку страницы без обращения к БД
+									</p>
+								</td>
+								<td>
+									<label class="switch">
+									<?php if ($this->data["cache"]["status"]) : ?>
+										<input type="checkbox" name="cache"  checked >
+									<?php else : ?>
+										<input type="checkbox" name="cache">
+									<?php endif; ?>
+									  <span class="slider"></span>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="namelist">Время жизни кэша</span>
+									<p id="descriptiontag">
+										Данный параметр задает время хранения файла, после истечения срок - создается новый файл
+									</p>
+								</td>
+								<td>
+									<select name="cacheTime" style="float:right;">
+									<option value="86400"
+									
+									<?php if ($this->data["cache"]["time"] == 86400) : ?>
+										 selected="selected" 
+									<?php endif; ?>
+									
+									>День</option>
+									
+									<option value="604800"
+									<?php	if ($this->data["cache"]["time"] == 604800) : ?>
+									 selected="selected" 
+									<?php endif; ?> 
+									 >Неделя</option>
+									<option value="2592000"
+									<?php if ($this->data["cache"]["time"] == 2592000) : ?>
+										selected="selected" 
+									<?php endif; ?>
+									>Месяц</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="namelist"><i class="fa fa-sitemap" aria-hidden="true"></i> Сгенерировать 
+									<a href="/sitemap.xml">sitemap.xml</a>
+									</span>
+									<p id="descriptiontag">
+										Создает в корне сайта файл с актуальными ссылками для поискового робота
+									</p>
+								</td>
+								<td>
+									<div onclick="CreateSitemap();" class="button2">Создать</div>
+									<span class="sitemap_lastmod alert alert-success" style="display:none;"></span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan=2>
+									<input type="submit" class="ButtonStyle" value="Сохранить" app-method="save_setting_site">
+								</td>
+							</tr>
+							
+						</table>
+						
+				</section>
+				<section id="content-tab2">
+					
+					<form action="javascript:void(0);" name='settingOrder'>
+						<table id="hor-minimalist-b">
+							<tr>
+								<td class="tdpad">
+									<p>
+										<span class="namelist"><i class="fa fa-at" aria-hidden="true"></i> Настройки почты</span>
+											<label class="switch">
+												<?php if ($this->data['mail']['email']["status"]) : ?>
+													<input type="checkbox" name="emailStatus" checked>
+												<?php else : ?>
+													<input type="checkbox" name="emailStatus">
+												<?php endif; ?>
+												  <span class="slider"></span>
+											</label>
+									</p>
+									<p id="descriptiontag">
+										Стандартная функция в большинстве CMS - позволяет отправить письмо с данными о заявке на указанную почту
+									</p>
+								</td>
+								<td class="tdpad">
+									<table id="hor-minimalist-b">
+										<tr>
+											<td>Логин</td><td><input name='emailLogin' type="text" placeholder="info@test.ru" value="<?=$this->data['mail']['email']['login']?>"></td>
+										</tr>
+										<tr>
+											<td>Пароль</td><td><input name='emailPassword' type="text" placeholder="***" value=""></td>
+										</tr>
+										<tr>
+											<td>Отпавлять на почту</td><td><input name='emailSend' type="text" placeholder="zakaz@mycompany.ru" value="<?=$this->data['mail']['email']['send']?>"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdpad">
+									<p>
+										<span class="namelist"><i class="fa fa-telegram" aria-hidden="true"></i> Отправка в Telegram</span>
+										<label class="switch">
+											<?php if ($this->data['telegram']['status']) : ?>
+												<input type="checkbox" name="telegaSend" checked>
+											<?php else : ?>
+												<input type="checkbox" name="telegaSend">
+											<?php endif; ?>
+												  <span class="slider"></span>
+										</label>
+									</p>
+									<p id="descriptiontag">
+										Мы предусмотрели возможность отправки заявок не только на почту.<br>
+										После настройки, все заявки будут дублироваться в мессенжер
+										лично вам или в корпоративный чат.
+										<br>
+										<i class="fa fa-warning" aria-hidden="true"></i> Советуем добавить прокси - без него доставка сообщений не гарантируется
+									</p>
+								</td>
+								<td class="tdpad">
+									<table id="hor-minimalist-b">
+										<tr>
+											<td>Токен бота</td>
+											<td><input name='telegaToken' type="text"  value="<?=$this->data['telegram']['token']?>"></td>
+										</tr>
+										<tr>
+											<td>Id чата/человека</td>
+											<td><input name='telegaSendId' type="text" placeholder="" value="<?=$this->data['telegram']['send']?>"></td>
+										</tr>
+										<tr>
+											<td>Прокси</td>
+											<td><input name='telegaProxy' type="text" placeholder="user:password@address:port" value="<?=$this->data['telegram']['proxy']?>"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>								
+								<td>
+									<p>
+										<span class="namelist"><i class="fa fa-phone" aria-hidden="true"></i> Сервис для проверки телефона <span class="tag2">phoneverify.org</span></span>
+										<label class="switch">
+											<?php if ($this->data['mail']['phoneverify']['status']) : ?>
+												<input type="checkbox" name="PhoneChecknum" checked>
+											<?php else : ?>
+												<input type="checkbox" name="PhoneChecknum">
+											<?php endif; ?>
+											<span class="slider"></span>
+										</label>
+									</p>
+									<p id="descriptiontag">
+									Данный сервис позволяет определить геоданные по номеру телефона.
+									<br>
+									<i class="fa fa-warning" aria-hidden="true"></i> В бесплатной версии установлены ограничения – 25 запросов в 5 минут.
+									</p>
+								</td>
+								<td>
+									<table id="hor-minimalist-b">
+											<tr>
+												<td>Логин</td>
+												<td><input name='PhoneChecklogin' type="text" placeholder="info@test.ru" value="<?=$this->data['mail']["phoneverify"]['login']?>"></td>
+											</tr>
+											<tr>
+												<td>Пароль</td>
+												<td><input type="text" name='PhoneCheckpassword' placeholder="***" value=""></td>
+											</tr>
+										</table>
+									<input type='submit' class="ButtonStyle" value='Сохранить' app-method="save_setting_site">
+									
+								</td>
+							</tr>
+							
+						</table>
+				</section>
+			</div>	
+			</form>
+		</div>
+
+<?php endif; ?>
