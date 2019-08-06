@@ -98,7 +98,7 @@
 		
 		header("http/1.0 404 Not Found"); 
 		
-		$this->cache->read(); // cache
+		$this->model->readCache($argument); // cache
 			
 		$this->view->data =	array(	
 									'title' => 'Страницы не существует',
@@ -115,7 +115,7 @@
 			
 		$this->view->render('404');
 		
-		$this->cache->white(); // cache
+		$this->model->writeCache($argument); // cache
 		
 		$this->view->render('scripts',false,true); // dinamic scripts
 		
